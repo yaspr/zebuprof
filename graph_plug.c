@@ -40,7 +40,7 @@ int loop_id = 0;
 int load    = 0, store  = 0;
 int gload   = 0, gstore = 0;
 
-//Plugin informations
+//Plugin information
 static struct plugin_info zebu_plugin_infos =
 {
   .version = "0.1",
@@ -64,7 +64,7 @@ int f_lookup(const char *f_name)
 }
 
 //If the compiler does an estimation then return that estimation 
-//If no estimation then unknown numer of iterations !
+//If no estimation then unknown number of iterations !
 int get_loop_iter(struct loop *loop)
 {
   unsigned ubound = 0;
@@ -86,7 +86,7 @@ void op_span(tree op, int op_type)
   //Check the 
   switch(TREE_CODE(op))
     {
-      //If the access if of the form ARRAY_BASE[ARRAY_INDEX]([ARRAY_INDEX] | eps)
+      //If the access is of the form ARRAY_BASE[ARRAY_INDEX]([ARRAY_INDEX] | eps)
     case ARRAY_REF   :
       
       //ARRAY_BASE
@@ -150,8 +150,8 @@ int count(basic_block bb, int it, int depth)
 	  break;
 	  
 	case GIMPLE_CALL :
-	  //Check all the function parameters which are inly read.
-	  //If any must be changed a store will occur in the body !
+	  //Check all the function parameters which are only read.
+	  //If any must be changed, a store will occur in the body !
 	  for (int i = 0; i < gimple_call_num_args(stmt); i++)
 	    op_span(gimple_call_arg(stmt, i), LOAD);
 	  
@@ -159,7 +159,7 @@ int count(basic_block bb, int it, int depth)
 	}
     }
   
-  //Nothing to do is both null
+  //Nothing to do if both null
   if (load || store) 
     {
       if (it > 0)
